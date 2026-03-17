@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Shelf</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,200;1,9..144,300&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&family=Space+Mono:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23111009'/><circle cx='16' cy='16' r='6' fill='none' stroke='%23D4923A' stroke-width='1.5'/><line x1='16' y1='4' x2='16' y2='10' stroke='%23D4923A' stroke-width='1.5'/><line x1='16' y1='22' x2='16' y2='28' stroke='%23D4923A' stroke-width='1.5'/><line x1='4' y1='16' x2='10' y2='16' stroke='%23D4923A' stroke-width='1.5'/><line x1='22' y1='16' x2='28' y2='16' stroke='%23D4923A' stroke-width='1.5'/></svg>"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,200;1,9..144,300&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&family=Space+Mono:ital,wght@0,400;1,400&display=swap" rel="stylesheet"/>
   <style>
     :root {
       --bg:#111009; --s1:#1A1814; --s2:#221F19; --s3:#2A2720;
-      --text:#F0EAE0; --muted:#9A9080; --faint:#5C5548;
+      --text:#F0EAE0; --muted:#9A9080; --faint:#6A6050;
       --amber:#D4923A; --amber-d:#8A5A1A; --amber-g:#F0B060;
       --green:#4A7C5F; --green-d:#2A4A38;
       --red:#8A3A3A; --red-d:#3A1A1A;
@@ -21,249 +22,164 @@
       --max:700px; --pad:clamp(1.25rem,5vw,2.5rem);
     }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    html{font-size:16px;scroll-behavior:smooth;}
+    html{font-size:17px;scroll-behavior:smooth;}
     body{background:var(--bg);color:var(--text);font-family:var(--body);line-height:1.75;-webkit-font-smoothing:antialiased;min-height:100vh;}
     ::selection{background:var(--amber-d);color:var(--text);}
     a{color:var(--amber);text-decoration:none;border-bottom:1px solid var(--amber-d);transition:color .2s,border-color .2s;}
     a:hover{color:var(--amber-g);border-color:var(--amber);}
     .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad);}
 
-    /* ── NAV ── */
-    nav{position:sticky;top:0;z-index:100;background:rgba(17,16,9,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);padding:1rem var(--pad);}
-    .nav-inner{max-width:var(--max);margin:0 auto;display:flex;justify-content:space-between;align-items:center;}
+    nav{position:sticky;top:0;z-index:100;background:rgba(17,16,9,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:.9rem var(--pad);}
+    .nav-inner{max-width:var(--max);margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:1rem;}
     .mark{width:32px;height:32px;border:1px solid rgba(240,234,224,.2);border-radius:2px;display:flex;align-items:center;justify-content:center;text-decoration:none;border-bottom:none;transition:border-color .2s;flex-shrink:0;}
-    .mark:hover{border-color:rgba(240,234,224,.45);border-bottom:none;}
-    .mark span{font-family:var(--serif);font-style:italic;font-weight:300;font-size:.95rem;color:var(--text);line-height:1;letter-spacing:-.02em;}
-    .nav-links{display:flex;gap:1.5rem;list-style:none;}
-    .nav-links a{font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);border:none;transition:color .2s;}
+    .mark:hover{border-color:rgba(240,234,224,.45);}
+    .mark svg{width:14px;height:14px;color:rgba(240,234,224,.7);}
+    .nav-links{display:flex;gap:1.25rem;list-style:none;flex-wrap:wrap;}
+    .nav-links a{font-family:var(--mono);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);border:none;transition:color .2s;display:flex;align-items:center;gap:.3rem;}
+    .nav-links a svg{width:11px;height:11px;flex-shrink:0;}
     .nav-links a:hover,.nav-links a.cur{color:var(--amber);border:none;}
 
-    /* ── PAGE HEADER ── */
-    .page-header{padding:3.5rem 0 2.5rem;border-bottom:1px solid var(--border);margin-bottom:2.5rem;}
-    .eyebrow{font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:.75rem;}
-    h1{font-family:var(--serif);font-weight:300;font-style:italic;font-size:clamp(2rem,5vw,2.75rem);line-height:1.15;letter-spacing:-.01em;color:var(--text);}
-    .header-sub{font-size:.82rem;color:var(--faint);font-family:var(--mono);margin-top:.75rem;font-style:italic;}
+    .page-header{padding:3rem 0 2rem;border-bottom:1px solid var(--border);margin-bottom:2.5rem;}
+    .eyebrow{font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:.65rem;}
+    h1{font-family:var(--serif);font-weight:300;font-style:italic;font-size:clamp(1.9rem,4.5vw,2.6rem);line-height:1.15;letter-spacing:-.01em;color:var(--text);}
+    .header-sub{font-size:.8rem;color:var(--faint);font-family:var(--mono);margin-top:.65rem;}
 
-    /* ── TABS ── */
     .tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:0;}
-    .tab{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);padding:.65rem 1.1rem;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .2s,border-color .2s;user-select:none;}
+    .tab{font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);padding:.65rem 1.1rem;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .2s,border-color .2s;user-select:none;}
     .tab:hover{color:var(--muted);}
     .tab.active{color:var(--amber);border-bottom-color:var(--amber);}
     .panel{display:none;padding-top:2rem;}
     .panel.active{display:block;}
 
-    /* ── ADD BUTTON ── */
-    .add-btn{
-      display:inline-flex;align-items:center;gap:.5rem;
-      font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;
-      color:var(--amber);border:1px solid var(--amber-d);padding:.45rem .9rem;
-      cursor:pointer;background:none;margin-bottom:1.75rem;
-      transition:border-color .2s,color .2s;
-    }
+    .add-btn{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);border:1px solid var(--amber-d);padding:.45rem .9rem;cursor:pointer;background:none;margin-bottom:1.75rem;transition:border-color .2s,color .2s;}
     .add-btn:hover{border-color:var(--amber);color:var(--amber-g);}
     .add-btn svg{width:12px;height:12px;flex-shrink:0;}
 
-    /* ── MODAL OVERLAY ── */
-    .overlay{
-      position:fixed;inset:0;background:rgba(8,7,5,.88);
-      z-index:200;display:none;align-items:center;justify-content:center;
-      padding:1.5rem;
-    }
+    .overlay{position:fixed;inset:0;background:rgba(8,7,5,.9);z-index:200;display:none;align-items:center;justify-content:center;padding:1.5rem;}
     .overlay.open{display:flex;}
-
-    .modal{
-      background:var(--s2);border:1px solid var(--border2);
-      width:100%;max-width:420px;padding:1.75rem;
-    }
+    .modal{background:var(--s2);border:1px solid var(--border2);width:100%;max-width:420px;padding:1.75rem;}
     .modal h2{font-family:var(--serif);font-weight:300;font-style:italic;font-size:1.3rem;color:var(--text);margin-bottom:1.5rem;}
-
     .field{margin-bottom:1.1rem;}
-    .field label{display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:.4rem;}
-    .field input,.field textarea,.field select{
-      width:100%;background:var(--s3);border:1px solid var(--border);
-      color:var(--text);font-family:var(--body);font-size:.9rem;
-      padding:.6rem .75rem;outline:none;transition:border-color .2s;
-      border-radius:0;-webkit-appearance:none;
-    }
+    .field label{display:block;font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-bottom:.4rem;}
+    .field input,.field textarea,.field select{width:100%;background:var(--s3);border:1px solid var(--border);color:var(--text);font-family:var(--body);font-size:.9rem;padding:.6rem .75rem;outline:none;transition:border-color .2s;border-radius:0;-webkit-appearance:none;}
     .field textarea{height:80px;resize:vertical;font-size:.85rem;}
     .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--amber-d);}
     .field select option{background:var(--s2);}
-
-    /* Star rating in form */
     .star-row{display:flex;gap:.4rem;margin-top:.25rem;}
-    .star-btn{
-      background:none;border:none;cursor:pointer;
-      font-size:1.2rem;color:var(--faint);padding:0;
-      transition:color .15s;line-height:1;
-    }
-    .star-btn.lit,.star-btn:hover~.star-btn,.star-btn:hover{color:var(--amber);}
-
+    .star-btn{background:none;border:none;cursor:pointer;font-size:1.2rem;color:var(--faint);padding:0;transition:color .15s;line-height:1;}
+    .star-btn.lit{color:var(--amber);}
     .modal-btns{display:flex;gap:.75rem;margin-top:1.5rem;justify-content:flex-end;}
-    .modal-btn{
-      font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;
-      padding:.45rem .9rem;border:1px solid var(--border2);background:none;color:var(--muted);
-      cursor:pointer;transition:border-color .2s,color .2s;
-    }
+    .modal-btn{font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;padding:.45rem .9rem;border:1px solid var(--border2);background:none;color:var(--muted);cursor:pointer;transition:border-color .2s,color .2s;}
     .modal-btn:hover{border-color:var(--amber-d);color:var(--text);}
     .modal-btn.primary{border-color:var(--amber-d);color:var(--amber);}
     .modal-btn.primary:hover{border-color:var(--amber);color:var(--amber-g);}
 
-    /* ── ITEMS ── */
     .items-grid{display:grid;gap:.65rem;}
-    .item-card{
-      background:var(--s1);border:1px solid var(--border);
-      padding:1.1rem 1.25rem;
-      display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:start;
-      transition:border-color .2s;
-    }
+    .item-card{background:var(--s1);border:1px solid var(--border);padding:1.1rem 1.25rem;display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:start;transition:border-color .2s;}
     .item-card:hover{border-color:var(--border2);}
-
-    .item-type{font-family:var(--mono);font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;color:var(--amber-d);margin-bottom:.3rem;}
+    .item-type{font-family:var(--mono);font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:var(--amber-d);margin-bottom:.3rem;}
     .item-title{font-family:var(--serif);font-weight:400;font-size:.98rem;color:var(--text);line-height:1.35;margin-bottom:.25rem;}
     .item-creator{font-size:.8rem;color:var(--muted);margin-bottom:.5rem;}
     .item-review{font-size:.82rem;color:var(--faint);font-style:italic;line-height:1.55;margin-bottom:.5rem;}
-
     .item-stars{display:flex;gap:.2rem;margin-bottom:.4rem;}
     .item-star{font-size:.9rem;color:var(--faint);}
     .item-star.lit{color:var(--amber);}
-
-    .item-status{
-      display:inline-block;font-family:var(--mono);font-size:.52rem;
-      letter-spacing:.08em;text-transform:uppercase;
-      padding:.15rem .55rem;border-radius:2px;
-    }
-    .status-reading{color:var(--amber);background:rgba(212,146,58,.1);}
+    .item-status{display:inline-block;font-family:var(--mono);font-size:.52rem;letter-spacing:.08em;text-transform:uppercase;padding:.15rem .55rem;border-radius:2px;}
+    .status-reading,.status-listening,.status-watching{color:var(--amber);background:rgba(212,146,58,.1);}
     .status-done{color:var(--green);background:var(--green-d);}
-    .status-next{color:var(--faint);background:var(--s2);}
-    .status-listening{color:var(--amber);background:rgba(212,146,58,.1);}
-    .status-watching{color:var(--amber);background:rgba(212,146,58,.1);}
-    .status-occasional{color:var(--faint);background:var(--s2);}
+    .status-next,.status-occasional{color:var(--faint);background:var(--s2);}
     .status-abandoned{color:var(--red);background:var(--red-d);}
-
     .item-actions{display:flex;flex-direction:column;gap:.5rem;align-items:flex-end;}
-    .del-btn{
-      background:none;border:1px solid transparent;
-      color:var(--faint);font-family:var(--mono);font-size:.58rem;
-      padding:.25rem .45rem;cursor:pointer;
-      transition:border-color .2s,color .2s;
-    }
+    .del-btn{background:none;border:1px solid transparent;color:var(--faint);font-family:var(--mono);font-size:.58rem;padding:.25rem .45rem;cursor:pointer;transition:border-color .2s,color .2s;}
     .del-btn:hover{border-color:var(--red);color:var(--red);}
-
-    /* Empty state */
     .empty{padding:3.5rem 0;text-align:center;}
     .empty p{font-family:var(--serif);font-style:italic;font-size:.95rem;color:var(--faint);line-height:1.7;}
 
-    /* ── FOOTER ── */
-    footer{border-top:1px solid var(--border);padding:1.75rem var(--pad);max-width:var(--max);margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;}
-    footer p{font-family:var(--mono);font-size:.6rem;color:var(--faint);letter-spacing:.04em;}
+    footer{border-top:1px solid var(--border);padding:1.5rem var(--pad);max-width:var(--max);margin:0 auto;display:flex;justify-content:space-between;align-items:center;}
+    footer p{font-family:var(--mono);font-size:.58rem;color:var(--faint);}
+    footer a{color:var(--faint);border-color:transparent;}
 
-    @media(max-width:520px){
-      .item-card{grid-template-columns:1fr;}
-      .item-actions{flex-direction:row;align-items:center;}
-    }
+    @media(max-width:520px){.item-card{grid-template-columns:1fr;}.item-actions{flex-direction:row;}.nav-links{gap:.9rem;}}
   </style>
 </head>
 <body>
 
-  <!-- ── NAV ── -->
   <nav>
     <div class="nav-inner">
       <a href="index.html" class="mark" title="Home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
       </a>
       <ul class="nav-links">
-        <li><a href="about.html">About</a></li>
-        <li><a href="research.html">Research</a></li>
-        <li><a href="blog.html">Blog</a></li>
-        <li><a href="shelf.html" class="cur">Shelf</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="about.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>About</a></li>
+        <li><a href="research.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>Research</a></li>
+        <li><a href="blog.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Blog</a></li>
+        <li><a href="shelf.html" class="cur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>Shelf</a></li>
+        <li><a href="contact.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>Contact</a></li>
       </ul>
     </div>
   </nav>
 
   <main>
     <div class="wrap">
-
       <div class="page-header">
         <p class="eyebrow">Shelf</p>
         <h1>What I am reading,<br>listening to, watching</h1>
-        <p class="header-sub">Add anything. Rate it. Forget it. Come back to it.</p>
+        <p class="header-sub">Add anything. Rate it. Come back to it.</p>
       </div>
 
       <div class="tabs">
         <div class="tab active" data-tab="books">Books</div>
         <div class="tab" data-tab="music">Music</div>
         <div class="tab" data-tab="pods">Podcasts</div>
-        <div class="tab" data-tab="other">Gallery</div>
+        <!-- FIX: was data-tab="other" — must match panel and grid IDs -->
+        <div class="tab" data-tab="gallery">Gallery</div>
       </div>
 
-      <!-- BOOKS -->
       <div class="panel active" id="panel-books">
         <button class="add-btn" data-type="books">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
-          Add book
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>Add book
         </button>
         <div class="items-grid" id="grid-books"></div>
-        <div class="empty" id="empty-books" style="display:none">
-          <p>Nothing here yet.<br>Add the first book.</p>
-        </div>
+        <div class="empty" id="empty-books"><p>Nothing here yet.<br>Add the first book.</p></div>
       </div>
 
-      <!-- MUSIC -->
       <div class="panel" id="panel-music">
         <button class="add-btn" data-type="music">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
-          Add album or track
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>Add album or track
         </button>
         <div class="items-grid" id="grid-music"></div>
-        <div class="empty" id="empty-music" style="display:none">
-          <p>Nothing here yet.<br>Add the first album.</p>
-        </div>
+        <div class="empty" id="empty-music"><p>Nothing here yet.<br>Add the first album.</p></div>
       </div>
 
-      <!-- PODCASTS -->
       <div class="panel" id="panel-pods">
         <button class="add-btn" data-type="pods">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
-          Add podcast
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>Add podcast
         </button>
         <div class="items-grid" id="grid-pods"></div>
-        <div class="empty" id="empty-pods" style="display:none">
-          <p>Nothing here yet.<br>Add the first podcast.</p>
-        </div>
+        <div class="empty" id="empty-pods"><p>Nothing here yet.<br>Add the first podcast.</p></div>
       </div>
 
-      <!-- GALLERY -->
       <div class="panel" id="panel-gallery">
         <button class="add-btn" data-type="gallery">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
-          Media
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>Add to gallery
         </button>
         <div class="items-grid" id="grid-gallery"></div>
-        <div class="empty" id="empty-other" style="display:none">
-          <p>Films, courses, newsletters — anything.</p>
-        </div>
+        <!-- FIX: was id="empty-other" — must be empty-gallery to match renderGrid lookup -->
+        <div class="empty" id="empty-gallery"><p>Films, courses, field photos, projects — anything.</p></div>
       </div>
-
     </div>
   </main>
 
   <footer>
-    <p>← <a href="index.html" style="color:var(--faint);border-color:transparent;">home</a></p>
+    <p id="fq" style="font-style:italic;font-family:'Source Serif 4',serif;font-size:.78rem;color:var(--faint);max-width:400px;line-height:1.55;"></p>
+    <p><a href="index.html">← home</a></p>
   </footer>
 
-  <!-- ── ADD MODAL ── -->
   <div class="overlay" id="overlay">
     <div class="modal">
       <h2 id="modal-title">Add to shelf</h2>
-
-      <div class="field">
-        <label>Title *</label>
-        <input type="text" id="f-title" placeholder="e.g. Race After Technology" />
-      </div>
-      <div class="field">
-        <label id="creator-label">Author</label>
-        <input type="text" id="f-creator" placeholder="e.g. Ruha Benjamin" />
-      </div>
+      <div class="field"><label>Title *</label><input type="text" id="f-title" placeholder="Title"/></div>
+      <div class="field"><label id="creator-label">Author</label><input type="text" id="f-creator" placeholder="Creator"/></div>
       <div class="field">
         <label>Status</label>
         <select id="f-status">
@@ -286,11 +202,7 @@
           <button class="star-btn" data-v="5" type="button">★</button>
         </div>
       </div>
-      <div class="field">
-        <label>Note (optional)</label>
-        <textarea id="f-note" placeholder="A sentence or two about why it matters to you…"></textarea>
-      </div>
-
+      <div class="field"><label>Note (optional)</label><textarea id="f-note" placeholder="Why it matters to you…"></textarea></div>
       <div class="modal-btns">
         <button class="modal-btn" id="cancel-btn">Cancel</button>
         <button class="modal-btn primary" id="save-btn">Save</button>
@@ -299,194 +211,159 @@
   </div>
 
   <script>
-  /* ── STORAGE KEY ── */
   const KEY = 'shelf_v1';
+  function load(){try{return JSON.parse(localStorage.getItem(KEY))||{books:[],music:[],pods:[],gallery:[]};}catch{return{books:[],music:[],pods:[],gallery:[]};}}
+  function save(d){localStorage.setItem(KEY,JSON.stringify(d));}
 
-  /* ── LOAD / SAVE ── */
-  function load() {
-    try { return JSON.parse(localStorage.getItem(KEY)) || { books:[], music:[], pods:[], gallery:[] }; }
-    catch { return { books:[], music:[], pods:[], gallery:[] }; }
-  }
-  function save(data) { localStorage.setItem(KEY, JSON.stringify(data)); }
+  const statusClass={reading:'status-reading',done:'status-done',next:'status-next',listening:'status-listening',watching:'status-watching',occasional:'status-occasional',abandoned:'status-abandoned'};
+  const statusLabel={reading:'Reading',done:'Done',next:'Next up',listening:'Listening',watching:'Watching',occasional:'Occasional',abandoned:'Abandoned'};
 
-  /* ── RENDER ── */
-  const statusClass = {
-    reading:'status-reading', done:'status-done', next:'status-next',
-    listening:'status-listening', watching:'status-watching',
-    occasional:'status-occasional', abandoned:'status-abandoned'
-  };
-  const statusLabel = {
-    reading:'Reading', done:'Done', next:'Next up',
-    listening:'Listening', watching:'Watching',
-    occasional:'Occasional', abandoned:'Abandoned'
-  };
+  function renderStars(n){return Array.from({length:5},(_,i)=>`<span class="item-star${i<n?' lit':''}">★</span>`).join('');}
 
-  function renderStars(n) {
-    return Array.from({length:5}, (_,i) =>
-      `<span class="item-star${i < n ? ' lit' : ''}">★</span>`
-    ).join('');
+  function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+  // FIX: was malformed ternary with no final else — caused JS parse error crashing everything
+  function typeLabel(type){
+    if(type==='books') return 'Book';
+    if(type==='music') return 'Music';
+    if(type==='pods')  return 'Podcast';
+    return 'Gallery';
   }
 
-  function renderGrid(type) {
-    const data = load();
-    const items = data[type] || [];
-    const grid  = document.getElementById('grid-' + type);
-    const empty = document.getElementById('empty-' + type);
-
-    if (!items.length) {
-      grid.innerHTML = '';
-      empty.style.display = 'block';
-      return;
-    }
-    empty.style.display = 'none';
-
-    grid.innerHTML = items.map((item, idx) => `
+  function renderGrid(type){
+    const data=load();
+    const items=data[type]||[];
+    const grid=document.getElementById('grid-'+type);
+    const empty=document.getElementById('empty-'+type);
+    if(!grid||!empty)return;
+    if(!items.length){grid.innerHTML='';empty.style.display='block';return;}
+    empty.style.display='none';
+    grid.innerHTML=items.map((item,idx)=>`
       <div class="item-card">
         <div>
-          <p class="item-type">${type === 'books' ? 'Book' : type === 'music' ? 'Music' : type === 'pods' ? 'Podcast' : 'Gallery' : type === 'media' ? 'Gallery'}</p>
+          <p class="item-type">${typeLabel(type)}</p>
           <p class="item-title">${esc(item.title)}</p>
-          ${item.creator ? `<p class="item-creator">${esc(item.creator)}</p>` : ''}
-          ${item.rating ? `<div class="item-stars">${renderStars(item.rating)}</div>` : ''}
-          ${item.note ? `<p class="item-review">${esc(item.note)}</p>` : ''}
-          ${item.status ? `<span class="item-status ${statusClass[item.status] || ''}">${statusLabel[item.status] || item.status}</span>` : ''}
+          ${item.creator?`<p class="item-creator">${esc(item.creator)}</p>`:''}
+          ${item.rating?`<div class="item-stars">${renderStars(item.rating)}</div>`:''}
+          ${item.note?`<p class="item-review">${esc(item.note)}</p>`:''}
+          ${item.status?`<span class="item-status ${statusClass[item.status]||''}">${statusLabel[item.status]||item.status}</span>`:''}
         </div>
         <div class="item-actions">
           <button class="del-btn" data-type="${type}" data-idx="${idx}" title="Remove">✕</button>
         </div>
-      </div>
-    `).join('');
+      </div>`).join('');
   }
 
-  function renderAll() {
-    ['books','music','pods','gallery'].forEach(renderGrid);
-  }
+  function renderAll(){['books','music','pods','gallery'].forEach(renderGrid);}
 
-  function esc(str) {
-    return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
-
-  /* ── TABS ── */
-  document.querySelectorAll('.tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  // TABS — FIX: data-tab="other" was pointing to non-existent panel-other
+  document.querySelectorAll('.tab').forEach(tab=>{
+    tab.addEventListener('click',()=>{
+      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
       tab.classList.add('active');
-      document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+      const panel=document.getElementById('panel-'+tab.dataset.tab);
+      if(panel) panel.classList.add('active');
     });
   });
 
-  /* ── ADD MODAL STATE ── */
-  let currentType = 'books';
-  let formRating  = 0;
+  let currentType='books', formRating=0;
+  const overlay=document.getElementById('overlay');
+  const typeLabels2={books:'book',music:'album or track',pods:'podcast',gallery:'item'};
+  const creatorLabels={books:'Author',music:'Artist',pods:'Host',gallery:'Creator'};
+  const defaultStatus={books:'reading',music:'listening',pods:'listening',gallery:'watching'};
 
-  const overlay    = document.getElementById('overlay');
-  const modalTitle = document.getElementById('modal-title');
-  const creatorLbl = document.getElementById('creator-label');
-  const fTitle     = document.getElementById('f-title');
-  const fCreator   = document.getElementById('f-creator');
-  const fStatus    = document.getElementById('f-status');
-  const fNote      = document.getElementById('f-note');
-  const starBtns   = document.querySelectorAll('.star-btn');
-
-  const typeLabels = { books:'book', music:'album or track', pods:'podcast', gallery:'item' };
-  const creatorLabels = { books:'Author', music:'Artist', pods:'Host', gallery:'Creator' };
-  const defaultStatus = { books:'reading', music:'listening', pods:'listening', other:'reading or watching or viewing' };
-
-  function openModal(type) {
-    currentType = type;
-    formRating  = 0;
-    fTitle.value = ''; fCreator.value = ''; fNote.value = '';
-    modalTitle.textContent = 'Add ' + (typeLabels[type] || 'item');
-    creatorLbl.textContent = creatorLabels[type] || 'Creator';
-    fStatus.value = defaultStatus[type] || 'reading';
+  function openModal(type){
+    currentType=type; formRating=0;
+    document.getElementById('f-title').value='';
+    document.getElementById('f-creator').value='';
+    document.getElementById('f-note').value='';
+    document.getElementById('modal-title').textContent='Add '+(typeLabels2[type]||'item');
+    document.getElementById('creator-label').textContent=creatorLabels[type]||'Creator';
+    document.getElementById('f-status').value=defaultStatus[type]||'reading';
     updateStarUI(0);
     overlay.classList.add('open');
-    setTimeout(() => fTitle.focus(), 60);
+    setTimeout(()=>document.getElementById('f-title').focus(),60);
   }
 
-  function closeModal() { overlay.classList.remove('open'); }
+  function closeModal(){overlay.classList.remove('open');}
 
-  function updateStarUI(n) {
-    starBtns.forEach(b => b.classList.toggle('lit', +b.dataset.v <= n));
+  function updateStarUI(n){
+    document.querySelectorAll('.star-btn').forEach(b=>b.classList.toggle('lit',+b.dataset.v<=n));
   }
 
-  /* Star click */
-  starBtns.forEach(b => {
-    b.addEventListener('click', () => {
-      formRating = +b.dataset.v;
-      updateStarUI(formRating);
-    });
-    b.addEventListener('mouseenter', () => updateStarUI(+b.dataset.v));
-    b.addEventListener('mouseleave', () => updateStarUI(formRating));
+  document.querySelectorAll('.star-btn').forEach(b=>{
+    b.addEventListener('click',()=>{formRating=+b.dataset.v;updateStarUI(formRating);});
+    b.addEventListener('mouseenter',()=>updateStarUI(+b.dataset.v));
+    b.addEventListener('mouseleave',()=>updateStarUI(formRating));
   });
 
-  /* Open via add buttons */
-  document.querySelectorAll('.add-btn').forEach(btn => {
-    btn.addEventListener('click', () => openModal(btn.dataset.type));
+  document.querySelectorAll('.add-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>openModal(btn.dataset.type));
   });
 
-  document.getElementById('cancel-btn').addEventListener('click', closeModal);
-  overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+  document.getElementById('cancel-btn').addEventListener('click',closeModal);
+  overlay.addEventListener('click',e=>{if(e.target===overlay)closeModal();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-  /* Save */
-  document.getElementById('save-btn').addEventListener('click', () => {
-    const title = fTitle.value.trim();
-    if (!title) { fTitle.focus(); return; }
-
-    const data = load();
+  document.getElementById('save-btn').addEventListener('click',()=>{
+    const title=document.getElementById('f-title').value.trim();
+    if(!title){document.getElementById('f-title').focus();return;}
+    const data=load();
+    if(!data[currentType])data[currentType]=[];
     data[currentType].unshift({
       title,
-      creator: fCreator.value.trim(),
-      status:  fStatus.value,
-      rating:  formRating,
-      note:    fNote.value.trim(),
-      added:   Date.now()
+      creator:document.getElementById('f-creator').value.trim(),
+      status:document.getElementById('f-status').value,
+      rating:formRating,
+      note:document.getElementById('f-note').value.trim(),
+      added:Date.now()
     });
     save(data);
     renderGrid(currentType);
     closeModal();
   });
 
-  /* Enter key saves */
-  document.getElementById('overlay').addEventListener('keydown', e => {
-    if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
-      document.getElementById('save-btn').click();
-    }
+  document.getElementById('overlay').addEventListener('keydown',e=>{
+    if(e.key==='Enter'&&e.target.tagName!=='TEXTAREA')document.getElementById('save-btn').click();
   });
 
-  /* Delete */
-  document.addEventListener('click', e => {
-    const btn = e.target.closest('.del-btn');
-    if (!btn) return;
-    const type = btn.dataset.type;
-    const idx  = +btn.dataset.idx;
-    const data = load();
-    data[type].splice(idx, 1);
-    save(data);
-    renderGrid(type);
+  document.addEventListener('click',e=>{
+    const btn=e.target.closest('.del-btn');
+    if(!btn)return;
+    const type=btn.dataset.type, idx=+btn.dataset.idx;
+    const data=load();
+    if(data[type]){data[type].splice(idx,1);save(data);renderGrid(type);}
   });
 
-  /* ── SEED DATA (first visit only) ── */
-  (function seedIfEmpty() {
-    const d = load();
-    if (d.books.length || d.music.length || d.pods.length) return;
-    d.books = [
-      { title:'Race After Technology', creator:'Ruha Benjamin', status:'reading', rating:0, note:'', added:Date.now() },
-      { title:'Atlas of AI', creator:'Kate Crawford', status:'reading', rating:0, note:'', added:Date.now()-1000 },
-      { title:'Digital Democracy, Analogue Politics', creator:'Nanjala Nyabola', status:'done', rating:5, note:'The most useful political framework for understanding technology in Kenya.', added:Date.now()-2000 },
-      { title:'Elite Capture', creator:'Olúfẹ́mi O. Táíwò', status:'next', rating:0, note:'', added:Date.now()-3000 },
-      { title:'Teaching Machines', creator:'Audrey Watters', status:'next', rating:0, note:'', added:Date.now()-4000 },
-      { title:'Unmasking AI', creator:'Joy Buolamwini', status:'done', rating:5, note:'The coded gaze argument is the one I keep returning to.', added:Date.now()-5000 }
+  // Seed first visit
+  (function(){
+    const d=load();
+    if(d.books.length||d.music.length||d.pods.length)return;
+    d.books=[
+      {title:'Race After Technology',creator:'Ruha Benjamin',status:'reading',rating:0,note:'',added:Date.now()},
+      {title:'Atlas of AI',creator:'Kate Crawford',status:'reading',rating:0,note:'',added:Date.now()-1000},
+      {title:'Digital Democracy, Analogue Politics',creator:'Nanjala Nyabola',status:'done',rating:5,note:'The most useful political framework for understanding technology in Kenya.',added:Date.now()-2000},
+      {title:'Elite Capture',creator:'Olúfẹ́mi O. Táíwò',status:'next',rating:0,note:'',added:Date.now()-3000},
+      {title:'Teaching Machines',creator:'Audrey Watters',status:'next',rating:0,note:'',added:Date.now()-4000},
+      {title:'Unmasking AI',creator:'Joy Buolamwini',status:'done',rating:5,note:'The coded gaze argument is the one I keep returning to.',added:Date.now()-5000}
     ];
-    d.pods = [
-      { title:'Tech Won\'t Save Us', creator:'Paris Marx', status:'listening', rating:4, note:'The transportation chapter is the best single analogy for AI in education.', added:Date.now() }
-    ];
+    d.pods=[{title:"Tech Won't Save Us",creator:'Paris Marx',status:'listening',rating:4,note:'The transportation chapter is the best single analogy for AI in education.',added:Date.now()}];
     save(d);
   })();
 
-  /* ── INIT ── */
+  // Footer quote
+  const QQ=[
+    {t:"Until the lion learns to write, every story will glorify the hunter.",a:"Chinua Achebe"},
+    {t:"I am because we are.",a:"Ubuntu philosophy"},
+    {t:"The function of freedom is to free someone else.",a:"Toni Morrison"},
+    {t:"A child who is not embraced by the village will burn it down to feel its warmth.",a:"African proverb"},
+    {t:"Indigenous data sovereignty is not a request. It is a right.",a:"Keolu Fox"},
+  ];
+  const fq=QQ[new Date().getHours()%QQ.length];
+  const fqEl=document.getElementById('fq');
+  if(fqEl) fqEl.textContent='\u201c'+fq.t+'\u201d \u2014 '+fq.a;
+
   renderAll();
   </script>
 </body>
